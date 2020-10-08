@@ -1,0 +1,18 @@
+<job concurrent_runs="1">
+    <load>chromeConfig.xml</load>
+    <batch name="JPMC Static Batch">
+        <test appname="JPMC Static Tests" testname="Site Map">
+            <configurations names="grid" />
+            <SmartSplit to="sitemap url groups" max="10" path="sitemap.xml" maxAttempts="1"/>
+            <execute>
+                <action type="crawl" from="sitemap.xml file" path="sitemap.xml" createSeparateTests="true">
+                    <foreach>
+                        <action type="navigate">exp[%url%]</action>
+                        <action type="sleep">1000</action>
+                        <action type="checkWindow">exp[%url%]</action>
+                    </foreach>
+                </action>
+            </execute>
+        </test>
+    </batch>
+</job>
